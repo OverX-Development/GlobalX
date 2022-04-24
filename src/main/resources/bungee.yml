@@ -1,0 +1,4 @@
+name: GlobalX
+version: '${project.version}'
+main: it.omnisys.plugin.GlobalX
+authors: ["GX_Regent-2.0", "Sgattix"]
