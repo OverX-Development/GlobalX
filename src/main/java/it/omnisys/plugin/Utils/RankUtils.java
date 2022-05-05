@@ -1,16 +1,14 @@
 package it.omnisys.plugin.Utils;
 
 import net.md_5.bungee.api.connection.ProxiedPlayer;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
-import java.util.Collection;
+import static it.omnisys.plugin.GlobalX.LPapi;
 
 public class RankUtils {
-    public static String getPlayerGroup(ProxiedPlayer player, Collection<String> possibleGroups) {
-        for (String group : possibleGroups) {
-            if (player.hasPermission("group." + group)) {
-                return group;
-            }
-        }
-        return null;
+    public static @Nullable String getPlayerGroup(ProxiedPlayer player) {
+        return LPapi.getGroupManager().getGroup(player.getName()).getDisplayName();
     }
+
+
 }

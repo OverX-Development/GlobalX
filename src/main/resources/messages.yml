@@ -8,5 +8,7 @@
 # Messages Config
 
 Prefix: "&c&lGLOBALX &7» "
-GlobalFormat: "&7&o[%serverName%] - %luckperms_prefix% %player_name% - &f%message%"
+ServerNameFormat: "&7&o[%serverName%]"
+ConsoleServer: "&8[&cNo Server&8]"
+GlobalFormat: "%prefix% %serverNameFormat% - %luckperms_prefix% %player_name% - &f%message%"
 

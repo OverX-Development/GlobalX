@@ -1,6 +1,9 @@
 package it.omnisys.plugin;
 
+import it.omnisys.plugin.Commands.GlobalCMD;
+import it.omnisys.plugin.Commands.GlobalSendCMD;
 import net.luckperms.api.LuckPerms;
+import net.luckperms.api.LuckPermsProvider;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
@@ -14,6 +17,8 @@ public final class GlobalX extends Plugin {
 
     public static Configuration mainConfig;
     public static Configuration messagesConfig;
+
+    public static LuckPerms LPapi = LuckPermsProvider.get();
 
     @Override
     public void onEnable() {
@@ -34,12 +39,16 @@ public final class GlobalX extends Plugin {
             }
         }
 
+
         getProxy().getLogger().info("\n" +
                 "   §c________      __          __   _  __      \n" +
                 "  §c/ ____/ /___  / /_  ____ _/ /  | |/ /      \n" +
                 " §c/ / __/ / __ \\/ __ \\/ __ `/ /   |   /   §bRunning on Version §8v" + getDescription().getVersion() + "\n" +
                 "§c/ /_/ / / /_/ / /_/ / /_/ / /   /   |        §bPluign by §8" + getDescription().getAuthor()  + "\n" +
                 "§c\\____/_/\\____/_.___/\\__,_/_/   /_/|_|     \n");
+
+        new GlobalCMD();
+        new GlobalSendCMD();
     }
 
     @Override
