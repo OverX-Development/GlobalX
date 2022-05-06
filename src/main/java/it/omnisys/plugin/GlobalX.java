@@ -5,31 +5,27 @@ import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
-import net.md_5.bungee.config.Configuration;
-import net.md_5.bungee.config.ConfigurationProvider;
-import net.md_5.bungee.config.YamlConfiguration;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
+import static it.omnisys.plugin.Managers.ConfigManager.createConfig;
+import static it.omnisys.plugin.Managers.ConfigManager.getXConfig;
 
 public final class GlobalX extends Plugin {
     public static GlobalX plugin;
-
-    private File mainConfigFile;
-
-    public static Configuration mainConfig;
-
-    private File messageConfigFile;
-    private Configuration messageConfig;
 
     public static LuckPerms LPapi = LuckPermsProvider.get();
 
     @Override
     public void onEnable() {
         // Plugin startup logic
-        createMainConfig();
-        createMesssageConfig();
+        createConfig("messages");
+        createConfig("config");
+
+        getXConfig("messages").set("Prefix", "&c&lGLOBALX &7»");
+        getXConfig("messages").set("ServerNameFormat", "&7&o[%serverName%]");
+        getXConfig("messages").set("ConsoleServer", "&8[&cNo Server&8]");
+        getXConfig("messages").set("ConsoleNameFormat", "&c&lCONSOLE &f");
+        getXConfig("messages").set("InsuffArgs", "&cInsufficient Arguments! Please use:\n&7/global <message>");
+        getXConfig("messages").set("GlobalFormat", "%prefix% %serverNameFormat% - %luckperms_prefix% %player_name% - &f%message%");
 
 
         getProxy().getLogger().info("\n" +
@@ -40,6 +36,7 @@ public final class GlobalX extends Plugin {
                 "§c\\____/_/\\____/_.___/\\__,_/_/   /_/|_|     \n");
 
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new GlobalCMD());
+
     }
 
     @Override
@@ -51,39 +48,5 @@ public final class GlobalX extends Plugin {
                 " §c/ / __/ / __ \\/ __ \\/ __ `/ /   |   /   §cDisabling §8v" + getDescription().getVersion() + "\n" +
                 "§c/ /_/ / / /_/ / /_/ / /_/ / /   /   |        §bPluign by §8" + getDescription().getAuthor()  + "\n" +
                 "§c\\____/_/\\____/_.___/\\__,_/_/   /_/|_|     \n");
-    }
-
-    public static Configuration getMessageConfig() {
-        return plugin.messageConfig;
-    }
-
-    public void createMesssageConfig() {
-        messageConfigFile = new File(ProxyServer.getInstance().getPluginsFolder()+ "/GlobalX/messages.yml");
-
-        try {
-            if (!messageConfigFile.exists()) {
-                messageConfigFile.createNewFile();
-            }
-            messageConfig = ConfigurationProvider.getProvider(YamlConfiguration.class).load(messageConfigFile);
-
-            ConfigurationProvider.getProvider(YamlConfiguration.class).save(messageConfig, messageConfigFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void createMainConfig() {
-        mainConfigFile = new File(ProxyServer.getInstance().getPluginsFolder()+ "/GlobalX/config.yml");
-
-        try {
-            if (!mainConfigFile.exists()) {
-                mainConfigFile.createNewFile();
-            }
-            mainConfig = ConfigurationProvider.getProvider(YamlConfiguration.class).load(mainConfigFile);
-
-            ConfigurationProvider.getProvider(YamlConfiguration.class).save(mainConfig, mainConfigFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
