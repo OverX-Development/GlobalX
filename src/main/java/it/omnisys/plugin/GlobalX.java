@@ -5,9 +5,9 @@ import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
+import net.md_5.bungee.config.Configuration;
 
-import static it.omnisys.plugin.Managers.ConfigManager.createConfig;
-import static it.omnisys.plugin.Managers.ConfigManager.getXConfig;
+import static it.omnisys.plugin.Managers.ConfigManager.*;
 
 public final class GlobalX extends Plugin {
     public static GlobalX plugin;
@@ -17,8 +17,13 @@ public final class GlobalX extends Plugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
+        Configuration messagesConfig = getXConfig("messages");
+        Configuration mainConfig = getXConfig("config");
+
         createConfig("messages");
         createConfig("config");
+        saveConfig(messagesConfig, "messages");
+        saveConfig(messagesConfig, "config");
 
         getXConfig("messages").set("Prefix", "&c&lGLOBALX &7»");
         getXConfig("messages").set("ServerNameFormat", "&7&o[%serverName%]");
