@@ -47,7 +47,6 @@ public final class GlobalX extends Plugin {
                 "§c\\____/_/\\____/_.___/\\__,_/_/   /_/|_|     \n");
 
         new GlobalCMD();
-        new GlobalSendCMD();
     }
 
     @Override

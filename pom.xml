@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>it.omnisys.plugin</groupId>
-    <artifactId>AdvancedGlobalChat</artifactId>
+    <artifactId>GlobalX</artifactId>
     <version>1.0.0-Alpha</version>
     <packaging>jar</packaging>
 
-    <name>AdvancedGlobalChat</name>
+    <name>GlobalX</name>
 
     <properties>
         <java.version>1.8</java.version>
