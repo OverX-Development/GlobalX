@@ -1,7 +1,6 @@
 package it.omnisys.plugin;
 
 import it.omnisys.plugin.Commands.GlobalCMD;
-import it.omnisys.plugin.Commands.GlobalSendCMD;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import net.md_5.bungee.api.plugin.Plugin;
