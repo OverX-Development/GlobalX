@@ -19,42 +19,48 @@ public class GlobalCMD extends Command {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        String replace = args.toString().replace("[", "").replace("]", "");
+        if (args.length >= 0) {
+            String replace = args.toString().replace("[", "").replace("]", "");
 
-        if(sender instanceof ProxiedPlayer) {
-            ProxiedPlayer p = (ProxiedPlayer) sender;
+            if (sender instanceof ProxiedPlayer) {
+                ProxiedPlayer p = (ProxiedPlayer) sender;
 
 
-            if(p.hasPermission("globalx.command.globalchat")) {
-                TextComponent clickable = new TextComponent(messagesConfig.getString("ServerNameFormat").replaceAll("%serverName%", p.getServer().getInfo().getName()));
-                clickable.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/server " + p.getServer().getInfo().getName()));
+                if (p.hasPermission("globalx.command.globalchat")) {
+                    TextComponent clickable = new TextComponent(messagesConfig.getString("ServerNameFormat").replaceAll("%serverName%", p.getServer().getInfo().getName()));
+                    clickable.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/server " + p.getServer().getInfo().getName()));
 
+                    String OutPutMessage = color(
+                            messagesConfig.getString("GlobalFormat")
+                                    .replaceAll("%prefix%", messagesConfig.getString("Prefix")
+                                            .replaceAll("%serverNameFormat%", String.valueOf(clickable))
+                                            .replaceAll("%luckperms_prefix%", getPlayerGroup(p))
+                                            .replaceAll("%luckperms_displayname%", getPlayerGroup(p))
+                                            .replaceAll("%playerName%", p.getName())
+                                            .replaceAll("%message%", replace)
+                                    ));
+
+
+                    plugin.getProxy().broadcast(OutPutMessage);
+
+
+                }
+            } else {
                 String OutPutMessage = color(
                         messagesConfig.getString("GlobalFormat")
-                        .replaceAll("%prefix%", messagesConfig.getString("Prefix")
-                        .replaceAll("%serverNameFormat%", String.valueOf(clickable))
-                        .replaceAll("%luckperms_prefix%", getPlayerGroup(p))
-                        .replaceAll("%luckperms_displayname%", getPlayerGroup(p))
-                        .replaceAll("%message%", replace)
-                        ));
+                                .replaceAll("%prefix%", messagesConfig.getString("Prefix")
+                                        .replaceAll("%serverNameFormat%", messagesConfig.getString("ConsoleServer"))
+                                        .replaceAll("%luckperms_prefix%", "")
+                                        .replaceAll("%luckperms_displayname%", "")
+                                        .replaceAll("%playerName%", messagesConfig.getString("ConsoleNameFormat"))
+                                        .replaceAll("%message%", replace)
+                                ));
 
 
-                plugin.getProxy().broadcast(OutPutMessage);
-
-
+                plugin.getProxy().broadcast(color(OutPutMessage));
             }
         } else {
-            String OutPutMessage = color(
-                    messagesConfig.getString("GlobalFormat")
-                            .replaceAll("%prefix%", messagesConfig.getString("Prefix")
-                                    .replaceAll("%serverNameFormat%", messagesConfig.getString("ConsoleServer"))
-                                    .replaceAll("%luckperms_prefix%", getPlayerGroup(p))
-                                    .replaceAll("%luckperms_displayname%", getPlayerGroup(p))
-                                    .replaceAll("%message%", replace)
-                            ));
-
-
-            plugin.getProxy().broadcast(OutPutMessage);
+            sender.sendMessage(color(messagesConfig.getString("InsuffArgs")));
         }
     }
 }
