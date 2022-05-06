@@ -17,20 +17,15 @@ public final class GlobalX extends Plugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
-        Configuration messagesConfig = getXConfig("messages");
-        Configuration mainConfig = getXConfig("config");
+        createMessagesConfig();
+        saveMessagesConfig();
 
-        createConfig("messages");
-        createConfig("config");
-        saveConfig(messagesConfig, "messages");
-        saveConfig(messagesConfig, "config");
-
-        getXConfig("messages").set("Prefix", "&c&lGLOBALX &7»");
-        getXConfig("messages").set("ServerNameFormat", "&7&o[%serverName%]");
-        getXConfig("messages").set("ConsoleServer", "&8[&cNo Server&8]");
-        getXConfig("messages").set("ConsoleNameFormat", "&c&lCONSOLE &f");
-        getXConfig("messages").set("InsuffArgs", "&cInsufficient Arguments! Please use:\n&7/global <message>");
-        getXConfig("messages").set("GlobalFormat", "%prefix% %serverNameFormat% - %luckperms_prefix% %player_name% - &f%message%");
+        getMessagesConfig().set("Prefix", "&c&lGLOBALX &7»");
+        getMessagesConfig().set("ServerNameFormat", "&7&o[%serverName%]");
+        getMessagesConfig().set("ConsoleServer", "&8[&cNo Server&8]");
+        getMessagesConfig().set("ConsoleNameFormat", "&c&lCONSOLE &f");
+        getMessagesConfig().set("InsuffArgs", "&cInsufficient Arguments! Please use:\n&7/global <message>");
+        getMessagesConfig().set("GlobalFormat", "%prefix% %serverNameFormat% - %luckperms_prefix% %player_name% - &f%message%");
 
 
         getProxy().getLogger().info("\n" +

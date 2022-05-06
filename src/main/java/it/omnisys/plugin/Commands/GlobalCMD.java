@@ -7,7 +7,7 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
 import static it.omnisys.plugin.GlobalX.plugin;
-import static it.omnisys.plugin.Managers.ConfigManager.getXConfig;
+import static it.omnisys.plugin.Managers.ConfigManager.getMessagesConfig;
 import static it.omnisys.plugin.Utils.ColorUtils.color;
 import static it.omnisys.plugin.Utils.RankUtils.getPlayerGroup;
 
@@ -26,12 +26,12 @@ public class GlobalCMD extends Command {
 
 
                 if (p.hasPermission("globalx.command.globalchat")) {
-                    TextComponent clickable = new TextComponent(getXConfig("messages").getString("ServerNameFormat").replaceAll("%serverName%", p.getServer().getInfo().getName()));
+                    TextComponent clickable = new TextComponent(getMessagesConfig().getString("ServerNameFormat").replaceAll("%serverName%", p.getServer().getInfo().getName()));
                     clickable.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/server " + p.getServer().getInfo().getName()));
 
                     String OutPutMessage = color(
-                            getXConfig("messages").getString("GlobalFormat")
-                                    .replaceAll("%prefix%", getXConfig("messages").getString("Prefix")
+                            getMessagesConfig().getString("GlobalFormat")
+                                    .replaceAll("%prefix%", getMessagesConfig().getString("Prefix")
                                             .replaceAll("%serverNameFormat%", String.valueOf(clickable))
                                             .replaceAll("%luckperms_prefix%", getPlayerGroup(p))
                                             .replaceAll("%luckperms_displayname%", getPlayerGroup(p))
@@ -46,12 +46,12 @@ public class GlobalCMD extends Command {
                 }
             } else {
                 String OutPutMessage = color(
-                        getXConfig("messages").getString("GlobalFormat")
-                                .replaceAll("%prefix%", getXConfig("messages").getString("Prefix")
-                                        .replaceAll("%serverNameFormat%", getXConfig("messages").getString("ConsoleServer"))
+                        getMessagesConfig().getString("GlobalFormat")
+                                .replaceAll("%prefix%", getMessagesConfig().getString("Prefix")
+                                        .replaceAll("%serverNameFormat%", getMessagesConfig().getString("ConsoleServer"))
                                         .replaceAll("%luckperms_prefix%", "")
                                         .replaceAll("%luckperms_displayname%", "")
-                                        .replaceAll("%playerName%", getXConfig("messages").getString("ConsoleNameFormat"))
+                                        .replaceAll("%playerName%", getMessagesConfig().getString("ConsoleNameFormat"))
                                         .replaceAll("%message%", replace)
                                 ));
 
@@ -59,7 +59,7 @@ public class GlobalCMD extends Command {
                 plugin.getProxy().broadcast(color(OutPutMessage));
             }
         } else {
-            sender.sendMessage(color(getXConfig("messages").getString("InsuffArgs")));
+            sender.sendMessage(color(getMessagesConfig().getString("InsuffArgs")));
         }
     }
 }
