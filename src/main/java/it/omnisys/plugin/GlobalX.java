@@ -18,7 +18,6 @@ public final class GlobalX extends Plugin {
     public void onEnable() {
         // Plugin startup logic
         registerMessagesConfig();
-        getMessagesConfig().set("GlobalFormat", "%prefix% %serverNameFormat% - %luckperms_prefix% %player_name% - &f%message%");
 
 
         getProxy().getLogger().info("\n" +
