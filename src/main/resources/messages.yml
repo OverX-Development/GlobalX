@@ -1,0 +1,14 @@
+#    ________      __          __   _  __
+#   / ____/ /___  / /_  ____ _/ /  | |/ /
+#  / / __/ / __ \\/ __ \\/ __ `/ /   |   /
+# / /_/ / / /_/ / /_/ / /_/ / /   /   |
+# \\____/_/\\____/_.___/\\__,_/_/   /_/|_|
+#
+# Messages Config
+
+Prefix: "&c&lGLOBALX &7»"
+ServerNameFormat: "&7&o[%serverName%]"
+ConsoleServer: "&8[&cNo Server&8]"
+ConsoleNameFormat: "&c&lCONSOLE &f"
+InsuffArgs: "&cInsufficient Arguments! Please use:\n&7/global <message>"
+GlobalFormat: "%prefix% %serverNameFormat% - %luckperms_prefix% %player_name% - &f%message%"

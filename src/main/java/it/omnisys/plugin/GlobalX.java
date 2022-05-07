@@ -17,14 +17,7 @@ public final class GlobalX extends Plugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
-        createMessagesConfig();
-        saveMessagesConfig();
-
-        getMessagesConfig().set("Prefix", "&c&lGLOBALX &7»");
-        getMessagesConfig().set("ServerNameFormat", "&7&o[%serverName%]");
-        getMessagesConfig().set("ConsoleServer", "&8[&cNo Server&8]");
-        getMessagesConfig().set("ConsoleNameFormat", "&c&lCONSOLE &f");
-        getMessagesConfig().set("InsuffArgs", "&cInsufficient Arguments! Please use:\n&7/global <message>");
+        registerMessagesConfig();
         getMessagesConfig().set("GlobalFormat", "%prefix% %serverNameFormat% - %luckperms_prefix% %player_name% - &f%message%");
 
 
