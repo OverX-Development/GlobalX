@@ -43,7 +43,7 @@ public class GlobalCMD extends Command {
             // noinspection deprecation
             ProxyServer.getInstance().broadcast(color(getMessagesConfig().getString("GlobalFormat")
                     .replace("%prefix%", color(getMessagesConfig().getString("Prefix")))
-                    .replace("%serverNameFormat%", color(getMessagesConfig().getString("ServerNameFormat")))
+                    .replace("%serverNameFormat%", color(getMessagesConfig().getString("ServerNameFormat").replace("%serverName%", player.getServer().getInfo().getName())))
                     .replace("%player_name%", color(player.getDisplayName()))
                     .replace("%message%", color(message))
                     ));
