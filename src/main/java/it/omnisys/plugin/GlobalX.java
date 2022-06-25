@@ -1,6 +1,8 @@
 package it.omnisys.plugin;
 
 import it.omnisys.plugin.Commands.GlobalCMD;
+import it.omnisys.plugin.Commands.GlobalXCMD;
+import it.omnisys.plugin.Listeners.ChatListener;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
 
@@ -27,8 +29,9 @@ public final class GlobalX extends Plugin {
         getProxy().getLogger().info("§c\\____/_/\\____/_.___/\\__,_/_/   /_/|_|     \n");
 
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new GlobalCMD());
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new GlobalXCMD());
 
-
+        ProxyServer.getInstance().getPluginManager().registerListener(this, new ChatListener());
     }
 
     @Override

@@ -5,6 +5,10 @@ import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
+
 import static it.omnisys.plugin.GlobalX.plugin;
 import static it.omnisys.plugin.Managers.ConfigManager.getMessagesConfig;
 import static it.omnisys.plugin.Utils.ColorUtils.color;
@@ -14,11 +18,14 @@ public class GlobalCMD extends Command {
         super("global", "", "gc");
     }
 
+    public static List<UUID> GlobalToggle;
+
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (sender instanceof ProxiedPlayer) {
             ProxiedPlayer player = (ProxiedPlayer)sender;
-            if (!player.hasPermission("omnisys.omnidictation.globalchat")) {
+
+            if (!player.hasPermission("globalx.globalchat.use")) {
                 // noinspection deprecation
                 player.sendMessage(color(getMessagesConfig().getString("NoPermsMSG")));
                 return;
@@ -46,7 +53,7 @@ public class GlobalCMD extends Command {
                     .replace("%serverNameFormat%", color(getMessagesConfig().getString("ServerNameFormat").replace("%serverName%", player.getServer().getInfo().getName())))
                     .replace("%player_name%", color(player.getDisplayName()))
                     .replace("%message%", color(message))
-                    ));
+            ));
         } else {
             if (this.isNullArgument(args, 0)) {
                 plugin.getProxy().getLogger().info(color(getMessagesConfig().getString("InsuffArgs")));
