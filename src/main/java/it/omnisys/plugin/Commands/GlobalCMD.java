@@ -23,7 +23,7 @@ public class GlobalCMD extends Command {
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (sender instanceof ProxiedPlayer) {
-            ProxiedPlayer player = (ProxiedPlayer)sender;
+            ProxiedPlayer player = (ProxiedPlayer) sender;
 
             if (!player.hasPermission("globalx.globalchat.use")) {
                 // noinspection deprecation
