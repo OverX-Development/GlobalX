@@ -6,6 +6,7 @@ import it.omnisys.plugin.Listeners.ChatListener;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.plugin.Plugin;
 
+import static it.omnisys.plugin.Commands.GlobalCMD.GlobalToggle;
 import static it.omnisys.plugin.Managers.ConfigManager.*;
 
 public final class GlobalX extends Plugin {

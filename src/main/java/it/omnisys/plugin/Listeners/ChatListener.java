@@ -10,6 +10,7 @@ import net.md_5.bungee.api.event.ChatEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
+import static it.omnisys.plugin.Commands.GlobalCMD.GlobalToggle;
 import static it.omnisys.plugin.GlobalX.INSTANCE;
 import static it.omnisys.plugin.Managers.ConfigManager.getMainConfig;
 import static it.omnisys.plugin.Managers.ConfigManager.getMessagesConfig;
