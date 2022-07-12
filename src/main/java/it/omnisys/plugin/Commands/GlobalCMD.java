@@ -29,14 +29,15 @@ public class GlobalCMD extends Command {
             ProxiedPlayer player = (ProxiedPlayer) sender;
 
             if (!player.hasPermission("globalx.globalchat.use")) {
-                // noinspection deprecation
-                player.sendMessage(color(getMessagesConfig().getString("NoPermsMSG")));
+                player.sendMessage(new TextComponent(color(getMessagesConfig().getString("NoPermsMSG").replace("%prefix%", getMessagesConfig().getString("Prefix")))));
                 return;
             }
 
             if (this.isNullArgument(args, 0)) {
-                // noinspection deprecation
-                player.sendMessage(color(getMessagesConfig().getString("InsuffArgs")));
+                TextComponent insuffArgs = new TextComponent(color(getMessagesConfig().getString("InsuffArgs").replace("%prefix%", getMessagesConfig().getString("Prefix"))));
+                insuffArgs.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(color(getMessagesConfig().getString("InsuffArgsSuggestionHover")))));
+                insuffArgs.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/global <message>"));
+                player.sendMessage(insuffArgs);
                 return;
             }
 
@@ -67,7 +68,7 @@ public class GlobalCMD extends Command {
 
         } else {
             if (this.isNullArgument(args, 0)) {
-                plugin.getProxy().getLogger().info(color(getMessagesConfig().getString("InsuffArgs")));
+                plugin.getProxy().getLogger().info(color(getMessagesConfig().getString("InsuffArgs").replace("%prefix%", getMessagesConfig().getString("Prefix"))));
                 return;
             }
 

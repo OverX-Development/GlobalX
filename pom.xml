@@ -6,7 +6,7 @@
 
     <groupId>it.omnisys.plugin</groupId>
     <artifactId>GlobalX</artifactId>
-    <version>1.0.0-Alpha</version>
+    <version>1.0.1-Beta</version>
     <packaging>jar</packaging>
 
     <name>GlobalX</name>
