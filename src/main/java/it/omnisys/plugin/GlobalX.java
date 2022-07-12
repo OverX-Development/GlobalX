@@ -9,12 +9,12 @@ import net.md_5.bungee.api.plugin.Plugin;
 import static it.omnisys.plugin.Managers.ConfigManager.*;
 
 public final class GlobalX extends Plugin {
-    public static GlobalX plugin;
+    public static GlobalX INSTANCE;
 
     @Override
     public void onEnable() {
         // Plugin startup logic
-        plugin = this;
+        INSTANCE = this;
 
         createMainConfig();
         registerMainConfig();

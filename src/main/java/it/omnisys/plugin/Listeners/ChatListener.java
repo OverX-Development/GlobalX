@@ -1,7 +1,6 @@
 package it.omnisys.plugin.Listeners;
 
 import net.md_5.bungee.api.ProxyServer;
-import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -11,7 +10,7 @@ import net.md_5.bungee.api.event.ChatEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
-import static it.omnisys.plugin.GlobalX.plugin;
+import static it.omnisys.plugin.GlobalX.INSTANCE;
 import static it.omnisys.plugin.Managers.ConfigManager.getMainConfig;
 import static it.omnisys.plugin.Managers.ConfigManager.getMessagesConfig;
 import static it.omnisys.plugin.Utils.ColorUtils.color;
@@ -40,7 +39,7 @@ public class ChatListener implements Listener {
                             player.sendMessage(broadcast);
                         }
 
-                        plugin.getProxy().getLogger().info(String.valueOf(broadcast));
+                        INSTANCE.getProxy().getLogger().info(String.valueOf(broadcast));
                     } else {
                         e.setCancelled(true);
                         p.sendMessage(new TextComponent(color(getMessagesConfig().getString("NoPermsMSG").replace("%prefix%", getMessagesConfig().getString("Prefix")))));

@@ -7,11 +7,10 @@ import net.md_5.bungee.api.chat.hover.content.Text;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-import static it.omnisys.plugin.GlobalX.plugin;
+import static it.omnisys.plugin.GlobalX.INSTANCE;
 import static it.omnisys.plugin.Managers.ConfigManager.getMainConfig;
 import static it.omnisys.plugin.Managers.ConfigManager.getMessagesConfig;
 import static it.omnisys.plugin.Utils.ColorUtils.color;
@@ -64,11 +63,11 @@ public class GlobalCMD extends Command {
             for (ProxiedPlayer p : ProxyServer.getInstance().getPlayers()) {
                 p.sendMessage(broadcast);
             }
-            plugin.getProxy().getLogger().info(String.valueOf(broadcast));
+            INSTANCE.getProxy().getLogger().info(String.valueOf(broadcast));
 
         } else {
             if (this.isNullArgument(args, 0)) {
-                plugin.getProxy().getLogger().info(color(getMessagesConfig().getString("InsuffArgs").replace("%prefix%", getMessagesConfig().getString("Prefix"))));
+                INSTANCE.getProxy().getLogger().info(color(getMessagesConfig().getString("InsuffArgs").replace("%prefix%", getMessagesConfig().getString("Prefix"))));
                 return;
             }
 
@@ -92,7 +91,7 @@ public class GlobalCMD extends Command {
             for (ProxiedPlayer p : ProxyServer.getInstance().getPlayers()) {
                 p.sendMessage(broadcast);
             }
-            plugin.getProxy().getLogger().info(String.valueOf(broadcast));
+            INSTANCE.getProxy().getLogger().info(String.valueOf(broadcast));
         }
 
     }
