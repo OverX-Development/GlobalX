@@ -18,7 +18,7 @@ import static it.omnisys.plugin.Utils.ColorUtils.colorLogs;
 
 public class GlobalCMD extends Command {
     public GlobalCMD () {
-        super("global", "", "gc");
+        super("global", "", "gc", "globalchat");
     }
 
     @Override
