@@ -14,56 +14,64 @@ import static it.omnisys.plugin.GlobalX.INSTANCE;
 import static it.omnisys.plugin.Managers.ConfigManager.getMainConfig;
 import static it.omnisys.plugin.Managers.ConfigManager.getMessagesConfig;
 import static it.omnisys.plugin.Utils.ColorUtils.color;
+import static it.omnisys.plugin.Utils.ColorUtils.colorLogs;
 
 public class GlobalCMD extends Command {
     public GlobalCMD () {
         super("global", "", "gc");
     }
 
-    public static List<UUID> GlobalToggle;
-
     @Override
     public void execute(CommandSender sender, String[] args) {
         if (sender instanceof ProxiedPlayer) {
             ProxiedPlayer player = (ProxiedPlayer) sender;
 
-            if (!player.hasPermission("globalx.globalchat.use")) {
-                player.sendMessage(new TextComponent(color(getMessagesConfig().getString("NoPermsMSG").replace("%prefix%", getMessagesConfig().getString("Prefix")))));
-                return;
-            }
-
-            if (this.isNullArgument(args, 0)) {
-                TextComponent insuffArgs = new TextComponent(color(getMessagesConfig().getString("InsuffArgs").replace("%prefix%", getMessagesConfig().getString("Prefix"))));
-                insuffArgs.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(color(getMessagesConfig().getString("InsuffArgsSuggestionHover")))));
-                insuffArgs.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/global <message>"));
-                player.sendMessage(insuffArgs);
-                return;
-            }
-
-            String message = "";
-
-            for (String arg : args) {
-                if (message.equals("")) {
-                    message = arg;
-                } else {
-                    message = message + " " + arg;
+                if(!player.hasPermission("globalx.use")) {
+                    player.sendMessage(new TextComponent(color(getMessagesConfig().getString("NoPermsMSG").replace("%prefix%", getMessagesConfig().getString("Prefix")))));
+                    return;
                 }
-            }
 
-            BaseComponent broadcast = new TextComponent(color(
-                    getMessagesConfig().getString("GlobalFormat")
-                    .replace("%prefix%", color(getMessagesConfig().getString("Prefix")))
-                    .replace("%serverNameFormat%", color(getMessagesConfig().getString("ServerNameFormat").replace("%serverName%", player.getServer().getInfo().getName())))
-                    .replace("%player_name%", color(player.getDisplayName()))
-                    .replace("%message%", message)));
 
-            broadcast.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, getMainConfig().getString("CommandClickEvent").replace("%player%", player.getDisplayName()).replace("%target%", player.getServer().getInfo().getName())));
-            broadcast.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(color(getMainConfig().getString("TextHoverEvent")))));
+//            if (!player.hasPermission("globalx.globalchat.use")) {
+//                player.sendMessage(new TextComponent(color(getMessagesConfig().getString("NoPermsMSG").replace("%prefix%", getMessagesConfig().getString("Prefix")))));
+//                return;
+//            }
+
+                if (this.isNullArgument(args, 0)) {
+                    TextComponent insuffArgs = new TextComponent(color(getMessagesConfig().getString("InsuffArgs").replace("%prefix%", getMessagesConfig().getString("Prefix"))));
+                    insuffArgs.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(color(getMessagesConfig().getString("InsuffArgsSuggestionHover")))));
+                    insuffArgs.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/global <message>"));
+                    player.sendMessage(insuffArgs);
+                    return;
+                }
+
+                String message = "";
+
+                for (String arg : args) {
+                    if (message.equals("")) {
+                        message = arg;
+                    } else {
+                        message = message + " " + arg;
+                    }
+                }
+
+                TextComponent broadcast = new TextComponent(color(
+                        getMessagesConfig().getString("GlobalFormat")
+                                .replace("%prefix%", color(getMessagesConfig().getString("Prefix")))
+                                .replace("%serverNameFormat%", color(getMessagesConfig().getString("ServerNameFormat").replace("%serverName%", player.getServer().getInfo().getName())))
+                                .replace("%player_name%", color(player.getDisplayName()))
+                                .replace("%message%", message)));
+
+                if(getMainConfig().getBoolean("HoverAndClickText.Enable")) {
+                    broadcast.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, getMainConfig().getString("HoverAndClickText.Command").replace("%player%", player.getDisplayName()).replace("%target%", player.getServer().getInfo().getName())));
+                    broadcast.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(color(getMainConfig().getString("HoverAndClickText.Text")))));
+                }
 
             for (ProxiedPlayer p : ProxyServer.getInstance().getPlayers()) {
                 p.sendMessage(broadcast);
             }
-            INSTANCE.getProxy().getLogger().info(String.valueOf(broadcast));
+
+            INSTANCE.getProxy().getLogger().info(colorLogs(broadcast.getText().replaceAll("&", "§")));
 
         } else {
             if (this.isNullArgument(args, 0)) {
@@ -81,7 +89,7 @@ public class GlobalCMD extends Command {
                 }
             }
 
-            BaseComponent broadcast = new TextComponent(color(
+            TextComponent broadcast = new TextComponent(color(
                     getMessagesConfig().getString("GlobalFormat")
                             .replace("%prefix%", color(getMessagesConfig().getString("Prefix")))
                             .replace("%serverNameFormat%", color(getMessagesConfig().getString("ServerNameFormat").replace("%serverName%", getMessagesConfig().getString("ConsoleServer"))))
@@ -91,7 +99,7 @@ public class GlobalCMD extends Command {
             for (ProxiedPlayer p : ProxyServer.getInstance().getPlayers()) {
                 p.sendMessage(broadcast);
             }
-            INSTANCE.getProxy().getLogger().info(String.valueOf(broadcast));
+            INSTANCE.getProxy().getLogger().info(colorLogs(broadcast.getText().replaceAll("&", "§")));
         }
 
     }
