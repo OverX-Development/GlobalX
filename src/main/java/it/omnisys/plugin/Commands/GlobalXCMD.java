@@ -24,6 +24,8 @@ public class GlobalXCMD extends Command {
                 if(p.hasPermission("globalx.command.reload")) {
                     reload();
                     p.sendMessage(new TextComponent(color(getMessagesConfig().getString("ConfigReloadedMSG").replace("%prefix%", getMessagesConfig().getString("Prefix")))));
+                } else {
+                    p.sendMessage(new TextComponent(color("&c● &7This server is running GlobalX v" + INSTANCE.getDescription().getVersion() + " by &cSgattix & GX_Regent")));
                 }
             } else {
                 p.sendMessage(new TextComponent(color("&c● &7This server is running GlobalX v" + INSTANCE.getDescription().getVersion() + " by &cSgattix & GX_Regent")));
@@ -31,7 +33,7 @@ public class GlobalXCMD extends Command {
         } else {
             if(args.length == 1 && args[0].equalsIgnoreCase("reload")) {
                 reload();
-                INSTANCE.getProxy().getLogger().info(getMessagesConfig().getString("ConfigReloadedMSG").replace("%prefix%", getMessagesConfig().getString("Prefix")));
+                INSTANCE.getProxy().getLogger().info(getMessagesConfig().getString("ConfigReloadedMSG").replace("%prefix%", getMessagesConfig().getString("Prefix")).replaceAll("&", "§"));
             } else {
                 INSTANCE.getProxy().getLogger().info("§c● &7This server is running GlobalX v" + INSTANCE.getDescription().getVersion() + " by §cSgattix & GX_Regent");
             }

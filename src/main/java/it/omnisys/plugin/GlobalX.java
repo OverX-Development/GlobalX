@@ -1,6 +1,7 @@
 package it.omnisys.plugin;
 
 import it.omnisys.plugin.Commands.GlobalCMD;
+import it.omnisys.plugin.Commands.GlobalToggleCMD;
 import it.omnisys.plugin.Commands.GlobalXCMD;
 import it.omnisys.plugin.Listeners.ChatListener;
 import it.omnisys.plugin.Listeners.JoinListener;
@@ -40,6 +41,7 @@ public final class GlobalX extends Plugin {
 
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new GlobalCMD());
         ProxyServer.getInstance().getPluginManager().registerCommand(this, new GlobalXCMD());
+        ProxyServer.getInstance().getPluginManager().registerCommand(this, new GlobalToggleCMD());
         ProxyServer.getInstance().getPluginManager().registerListener(this, new ChatListener());
         ProxyServer.getInstance().getPluginManager().registerListener(this, new JoinListener());
     }

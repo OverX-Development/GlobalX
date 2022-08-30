@@ -6,7 +6,7 @@
 
     <groupId>it.omnisys.plugin</groupId>
     <artifactId>GlobalX</artifactId>
-    <version>1.0.2-Beta</version>
+    <version>1.0.3-Beta</version>
     <packaging>jar</packaging>
 
     <name>GlobalX</name>
@@ -64,7 +64,7 @@
         <dependency>
             <groupId>net.md-5</groupId>
             <artifactId>bungeecord-api</artifactId>
-            <version>1.18-R0.1-SNAPSHOT</version>
+            <version>1.19-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
