@@ -1,4 +1,4 @@
-package it.omnisys.plugin.Managers;
+package it.omnisys.plugin.utils;
 
 import it.omnisys.plugin.GlobalX;
 import net.md_5.bungee.api.ProxyServer;
@@ -27,6 +27,16 @@ public class UpdateChecker {
                     }
                 } catch (IOException exception) {
                     plugin.getLogger().info("Unable to check for updates: " + exception.getMessage());
+                }
+            });
+        }
+
+        public void checkVersion() {
+            new UpdateChecker(plugin, resourceId).getVersion(version -> {
+                if (plugin.getDescription().getVersion().equals(version)) {
+                    plugin.getLogger().info("§aWe're up to date!");
+                } else {
+                    plugin.getLogger().info("§aThere's a new Update available (" + version + ")");
                 }
             });
         }

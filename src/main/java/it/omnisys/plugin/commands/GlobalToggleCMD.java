@@ -1,21 +1,22 @@
-package it.omnisys.plugin.Commands;
+package it.omnisys.plugin.commands;
 
+import it.omnisys.plugin.managers.ConfigManager;
+import it.omnisys.plugin.utils.ChatUtils;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
-
 import java.util.ArrayList;
 import java.util.List;
+import net.md_5.bungee.config.Configuration;
 
-import static it.omnisys.plugin.GlobalX.INSTANCE;
-import static it.omnisys.plugin.Managers.ConfigManager.getMessagesConfig;
-import static it.omnisys.plugin.Managers.PermissionManager.GLOBALX_GLOBALCHAT_TOGGLE;
-import static it.omnisys.plugin.Utils.ColorUtils.color;
+import static it.omnisys.plugin.managers.PermissionManager.GLOBALX_GLOBALCHAT_TOGGLE;
 
 public class GlobalToggleCMD extends Command {
 
     public static List<ProxiedPlayer> globalToggledPlayers = new ArrayList<>();
+
+    private static final Configuration messagesConfig = new ConfigManager("messages.yml").getConfig();
 
     public GlobalToggleCMD() {
         super("globaltoggle", "", "gtoggle");
@@ -29,13 +30,13 @@ public class GlobalToggleCMD extends Command {
             if(p.hasPermission(GLOBALX_GLOBALCHAT_TOGGLE)) {
                 if(globalToggledPlayers.contains(p)) {
                     globalToggledPlayers.remove(p);
-                    p.sendMessage(new TextComponent(color(getMessagesConfig().getString("GlobalChatToggledOff").replace("%prefix%", getMessagesConfig().getString("Prefix")))));
+                    p.sendMessage(new TextComponent(ChatUtils.chat(messagesConfig.getString("GlobalChatToggledOff"))));
                 } else {
                     globalToggledPlayers.add(p);
-                    p.sendMessage(new TextComponent(color(getMessagesConfig().getString("GlobalChatToggledOn").replace("%prefix%", getMessagesConfig().getString("Prefix")))));
+                    p.sendMessage(new TextComponent(ChatUtils.chat(messagesConfig.getString("GlobalChatToggledOn"))));
                 }
             } else {
-                p.sendMessage(new TextComponent(color(getMessagesConfig().getString("NoPermsMSG").replace("%prefix%", getMessagesConfig().getString("Prefix")))));
+                p.sendMessage(new TextComponent(ChatUtils.chat(messagesConfig.getString("NoPermsMSG"))));
             }
         }
     }

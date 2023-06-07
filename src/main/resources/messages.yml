@@ -6,9 +6,9 @@
 #
 # Messages Config
 
-Prefix: "&b&lGLOBALX &7»"
+prefix: "&b&lGLOBALX &7»"
 ServerNameFormat: "&7&o[%serverName%]"
-ConsoleServer: "&cNo Server&7"
+ConsoleServer: "&c&oNo Server&7"
 ConsoleNameFormat: "&b&lCONSOLE &f"
 InsuffArgs: "%prefix% &cInsufficient Arguments! Please use:\n&7/global <message>"
 InsuffArgsSuggestionHover: "&7&oClick to suggest command!"

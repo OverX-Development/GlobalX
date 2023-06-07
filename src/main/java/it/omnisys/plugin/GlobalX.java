@@ -1,37 +1,34 @@
 package it.omnisys.plugin;
 
-import it.omnisys.plugin.Commands.GlobalCMD;
-import it.omnisys.plugin.Commands.GlobalToggleCMD;
-import it.omnisys.plugin.Commands.GlobalXCMD;
-import it.omnisys.plugin.Listeners.ChatListener;
-import it.omnisys.plugin.Listeners.JoinListener;
-import it.omnisys.plugin.Managers.UpdateChecker;
-import net.md_5.bungee.api.ProxyServer;
+import it.omnisys.plugin.commands.GlobalCMD;
+import it.omnisys.plugin.commands.GlobalToggleCMD;
+import it.omnisys.plugin.commands.GlobalXCMD;
+import it.omnisys.plugin.listeners.ChatListener;
+import it.omnisys.plugin.listeners.JoinListener;
+import it.omnisys.plugin.managers.ConfigManager;
+import it.omnisys.plugin.utils.ReflectionUtils;
+import it.omnisys.plugin.utils.UpdateChecker;
+import lombok.Getter;
 import net.md_5.bungee.api.plugin.Plugin;
-
-import static it.omnisys.plugin.Managers.ConfigManager.*;
+import net.md_5.bungee.config.Configuration;
 
 public final class GlobalX extends Plugin {
-    public static GlobalX INSTANCE;
+    @Getter
+    static GlobalX plugin;
+    @Getter
+    static Configuration mainConfig;
+    @Getter
+    static Configuration messagesConfig;
 
     @Override
     public void onEnable() {
         // Plugin startup logic
-        INSTANCE = this;
+        plugin = this;
 
-        createMainConfig();
-        registerMainConfig();
+        mainConfig = new ConfigManager("config.yml").create();
+        messagesConfig = new ConfigManager("messages.yml").create();
 
-        createMessageConfig();
-        registerMessageConfig();
-
-        new UpdateChecker(this, 102941).getVersion(version -> {
-            if (this.getDescription().getVersion().equals(version)) {
-                getLogger().info("§aWe're up to date!");
-            } else {
-                getLogger().info("§aThere's a new Update available (" + version + ")");
-            }
-        });
+        new UpdateChecker(this, 102941).checkVersion();
         
         getProxy().getLogger().info("   §b________      __          __   _  __");
         getProxy().getLogger().info("  §b/ ____/ /___  / /_  ____ _/ /  | |/ /");
@@ -39,11 +36,8 @@ public final class GlobalX extends Plugin {
         getProxy().getLogger().info("§b/ /_/ / / /_/ / /_/ / /_/ / /   /   |        §7Plugin by §8" + getDescription().getAuthor());
         getProxy().getLogger().info("§b\\____/_/\\____/_.___/\\__,_/_/   /_/|_|     \n");
 
-        ProxyServer.getInstance().getPluginManager().registerCommand(this, new GlobalCMD());
-        ProxyServer.getInstance().getPluginManager().registerCommand(this, new GlobalXCMD());
-        ProxyServer.getInstance().getPluginManager().registerCommand(this, new GlobalToggleCMD());
-        ProxyServer.getInstance().getPluginManager().registerListener(this, new ChatListener());
-        ProxyServer.getInstance().getPluginManager().registerListener(this, new JoinListener());
+        ReflectionUtils.registerCommands(this);
+        ReflectionUtils.registerListeners(this);
     }
 
     @Override
@@ -56,5 +50,5 @@ public final class GlobalX extends Plugin {
         getProxy().getLogger().info("§b\\____/_/\\____/_.___/\\__,_/_/   /_/|_|     \n");
     }
 
-    public static void reload() { INSTANCE.onDisable(); INSTANCE.onEnable(); }
+    public static void reload() { plugin.onDisable(); plugin.onEnable(); }
 }
